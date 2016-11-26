@@ -1,2 +1,2 @@
 # hack-kings3.0
-No idea yet
+We got the idea, finally!
