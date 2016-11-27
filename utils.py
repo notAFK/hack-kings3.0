@@ -10,9 +10,9 @@ __init__ = ['DATABASES', 'get_database_connection', 'TEST_PARAMS', 'URLS',
             'VERBOSE', 'create_table', 'get_ticker']
 
 URLS = {'COMPANY_NAME_TO_TICKER_API': 'http://chstocksearch.herokuapp.com/api/'}
-VERBOSE = True
+VERBOSE = False
 TEST_PARAMS = {'ANALYSER_COMPANY': 'starbucks',
-                'MAX_TWEETS' : 100 }
+                'MAX_TWEETS' : 1000 }
 DATABASES = {'RAW_TWEETS_DB': 'raw_tweets.db',
              'FEATURES_DB'  : 'extracted_features.db',
              'STUB_RAW_TWEETS_DB': 'stub_raw_tweets.db'}
@@ -24,8 +24,8 @@ def get_database_connection(db_path):
 
 def create_tweets_table(db_path, table_name):
     conn, c = get_database_connection(db_path)
-    c.execute('''CREATE TABLE ''' + table_name + \
-              ''' (hash text, tweet text, ts timestamp)''')
+    c.execute('''CREATE TABLE IF NOT EXISTS ''' + table_name + \
+              ''' (hash INTEGER PRIMARY KEY, tweet TEXT, ts TEXT)''')
     conn.commit()
     conn.close()
 

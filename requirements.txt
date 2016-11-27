@@ -4,3 +4,5 @@ tqdm>=4.10.0
 oauth2>=1.9.0
 tweepy>=3.5.0
 googlefinance>=0.7
+selenium>=3.0.1
+beautifulsoup4>=4.5.1

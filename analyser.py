@@ -20,7 +20,7 @@ def init():
 
 # Read tweets from db
 def read_tweets(company):
-    conn, c = get_database_connection(DATABASES['STUB_RAW_TWEETS_DB'])
+    conn, c = get_database_connection(DATABASES['RAW_TWEETS_DB'])
     c.execute('''SELECT * FROM ''' + company + \
               ''' LIMIT 10000''')
     return conn, c
@@ -36,8 +36,8 @@ def filter_tweet(tweet):
     if tweet in stopwords.words('english') :
         return ''
     # Remove other characters
-    tweet = re.sub(r'^[a-zA-Z0-9 -\'!.;]', '', tweet)
-    return tweet
+    # tweet = re.sub(r'^[a-zA-Z0-9 -\'!.;]', '', tweet)
+    return tweet.encode('utf-8')
 
 
 # Return the features of the tweets as a list of tuples
@@ -47,7 +47,10 @@ def get_filtered_tweets_features(company):
     # Filter them
     features = []
     for tweet in c.fetchall():
-        feature = get_sentiment(filter_tweet(tweet[1]))
+        filtered_tweet = filter_tweet(tweet[1])
+        if filtered_tweet == '':
+            continue
+        feature = get_sentiment(filtered_tweet)
         features.append((tweet[0], feature['pos']))
     # Close connection
     conn.close()

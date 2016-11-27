@@ -5,6 +5,8 @@ import tweepy
 import json
 import config
 import sqlite3
+import os
+from tqdm import tqdm
 from utils import *
 
 '''
@@ -29,7 +31,7 @@ def get_tweets_from_keyword(keyword, max_tweets):
     search =tweepy.Cursor(api.search,q=keyword).items()
 
     tweets = []
-    for count in range (1, max_tweets): 
+    for count in range (1, max_tweets):
         try:
             tweet = next(search)
             #count is the number of tweets
@@ -47,20 +49,28 @@ def get_tweets_from_keyword(keyword, max_tweets):
             print "Writing to JSON tweet number:"+str(count)
             # json.dump(user._json,file,sort_keys = True,indent = 4)
             # tweets.append(json.loads(tweet))
-            tweets.append(tweet._json["text"])
-            
+            tweets.append((tweet._json["id"], tweet._json["text"], \
+                            tweet._json["created_at"]))
         except UnicodeEncodeError:
             pass
-        
+
     return tweets
 
-    
-    #todo: write users to file, search users for interests, locations etc.
+# Add the tweets in the db
+def add_tweets_in_db(tweets, keyword):
+    create_tweets_table(DATABASES['RAW_TWEETS_DB'], keyword)
+    conn, c = get_database_connection(DATABASES['RAW_TWEETS_DB'])
+    # Add the tweets to db
+    for index,tweet in tqdm(enumerate(tweets)):
+        c.execute('''INSERT OR IGNORE INTO ''' + keyword + \
+        ''' VALUES (?,?,?)''' ,(tweet[0], tweet[1], tweet[2]))
+    conn.commit()
+    conn.close()
 
 if __name__ == "__main__":
     keyword = TEST_PARAMS['ANALYSER_COMPANY']
     max_tweets = TEST_PARAMS['MAX_TWEETS']
     tweets = get_tweets_from_keyword(keyword, max_tweets)
-
-    for tweet in tweets:
-        print tweet
+    tweets = tweets + get_tweets_from_keyword('#' + keyword, max_tweets)
+    tweets = tweets + get_tweets_from_keyword('@' + keyword, max_tweets)
+    add_tweets_in_db(tweets, keyword)
