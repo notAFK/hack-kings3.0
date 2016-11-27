@@ -26,7 +26,7 @@ COMPANIES = {
             +"apple watch OR "
             +"mac OR "
             +"macbook OR "
-            +"iMac OR "
+            +"iMac"
             ],
         "Facebook" : [
             "Facebook OR "
@@ -35,25 +35,25 @@ COMPANIES = {
             +"poke OR "
             +"status OR "
             +"timeline OR "
-            +"messenger OR "
+            +"messenger"
             ],
         "Costa" : [
             'Costa OR '
             +'#Costa OR '
-            +'Whitbread OR '
+            +'Whitbread '
             ],
         "Microsoft" : [
             'Mircosoft OR '
             +'#Mircosoft OR '
-            +'Surface OR '
-            +'power point OR '
-            +'excel OR '
-            +'vista OR '
-            +'kinect OR '
-            +'bing OR '
-            +'visual basic OR '
-            +'visual studio OR '
-            +'ms-dos OR '
+            # +'Surface OR '
+            # +'power point OR '
+            # +'excel OR '
+            # +'vista OR '
+            # +'kinect OR '
+            # +'bing OR '
+            # +'visual basic OR '
+            # +'visual studio OR '
+            +'ms-dos'
             ],
         "Astrazeneca" : [
             "Astrazeneca OR "
@@ -103,46 +103,46 @@ COMPANIES = {
             +"Unimax OR "
             +"Zestoretic OR "
             +"Zestril OR "
-            +"Bydureon OR "
-            +"Byetta OR "
-            +"FarxigaOR "
-            +"KombiglyzeOR "
-            +"Onglyza OR "
-            +"Symlin OR "
-            +"Xigduo/Xigduo XR OR "
-            +"Entocort OR "
-            +"LosecOR "
-            +"Nexium OR "
-            +"Vimovo OR "
-            +"ApatefOR "
-            +"Avloclor OR "
-            +"Cubicin OR "
-            +"Foscavir OR "
-            +"Lexinor OR "
-            +"Merrem/Meronem OR "
-            +"Paludrine OR "
-            +"SavarineOR "
-            +"Synagis OR "
-            +"Heminevrin OR "
-            +"Mysoline OR "
-            +"Seroquel OR "
-            +"SeroquelOR "
-            +"Vivalan OR "
-            +"Zomig OR "
-            +"Arimidex OR "
-            +"Casodex/Cosudex OR "
-            +"Faslodex OR "
-            +"Iressa OR "
-            +"Lynparza OR "
-            +"NolvadexOR "
-            +"Tomudex OR "
-            +"Zoladex OR "
-            +"Caprelsa OR "
-            +"Tagrisso OR "
-            +"Accolate OR "
-            +"Bambec OR "
-            +"Bricanyl OR "
-            +"Oxis OR "
+            # +"Bydureon OR "
+            # +"Byetta OR "
+            # +"FarxigaOR "
+            # +"KombiglyzeOR "
+            # +"Onglyza OR "
+            # +"Symlin OR "
+            # +"Xigduo/Xigduo XR OR "
+            # +"Entocort OR "
+            # +"LosecOR "
+            # +"Nexium OR "
+            # +"Vimovo OR "
+            # +"ApatefOR "
+            # +"Avloclor OR "
+            # +"Cubicin OR "
+            # +"Foscavir OR "
+            # +"Lexinor OR "
+            # +"Merrem/Meronem OR "
+            # +"Paludrine OR "
+            # +"SavarineOR "
+            # +"Synagis OR "
+            # +"Heminevrin OR "
+            # +"Mysoline OR "
+            # +"Seroquel OR "
+            # +"SeroquelOR "
+            # +"Vivalan OR "
+            # +"Zomig OR "
+            # +"Arimidex OR "
+            # +"Casodex/Cosudex OR "
+            # +"Faslodex OR "
+            # +"Iressa OR "
+            # +"Lynparza OR "
+            # +"NolvadexOR "
+            # +"Tomudex OR "
+            # +"Zoladex OR "
+            # +"Caprelsa OR "
+            # +"Tagrisso OR "
+            # +"Accolate OR "
+            # +"Bambec OR "
+            # +"Bricanyl OR "
+            # +"Oxis OR "
             +"Pulmicort"
             ]
 }

@@ -7,6 +7,7 @@ import config
 import sqlite3
 import os
 from tqdm import tqdm
+import time
 from utils import *
 
 '''
@@ -46,7 +47,8 @@ def get_tweets_from_keyword(keyword, max_tweets):
         except StopIteration:
             break
         try:
-            print "Writing to JSON tweet number:"+str(count)
+            # print "Writing to JSON tweet number:"+str(count)
+            print "Scraping tweet number " + str(count)
             # json.dump(user._json,file,sort_keys = True,indent = 4)
             # tweets.append(json.loads(tweet))
             tweets.append((tweet._json["id"], tweet._json["text"], \
@@ -68,9 +70,21 @@ def add_tweets_in_db(tweets, keyword):
     conn.close()
 
 if __name__ == "__main__":
-    keyword = TEST_PARAMS['ANALYSER_COMPANY']
+    # keyword = TEST_PARAMS['ANALYSER_COMPANY']
+    # max_tweets = TEST_PARAMS['MAX_TWEETS']
+    # tweets = get_tweets_from_keyword(keyword, max_tweets)
+
+    keywords = COMPANIES['Astrazeneca']
     max_tweets = TEST_PARAMS['MAX_TWEETS']
+
     tweets = get_tweets_from_keyword(keyword, max_tweets)
     tweets = tweets + get_tweets_from_keyword('#' + keyword, max_tweets)
     tweets = tweets + get_tweets_from_keyword('@' + keyword, max_tweets)
     add_tweets_in_db(tweets, keyword)
+
+    #The old way to print it out
+    # for keyword in keywords:
+        # tweets = get_tweets_from_keyword(keyword, max_tweets)
+
+        # for tweet in tweets:
+            # print tweet
