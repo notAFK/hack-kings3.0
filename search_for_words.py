@@ -11,6 +11,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from tqdm import tqdm
+import time
 from utils import *
 
 '''
@@ -78,7 +79,8 @@ def get_tweets_from_keyword(keyword, max_tweets):
         except StopIteration:
             break
         try:
-            print "Writing to JSON tweet number:"+str(count)
+            # print "Writing to JSON tweet number:"+str(count)
+            print "Scraping tweet number " + str(count)
             # json.dump(user._json,file,sort_keys = True,indent = 4)
             # tweets.append(json.loads(tweet))
             tweets.append((tweet._json["id"], tweet._json["text"], \
