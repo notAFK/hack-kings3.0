@@ -16,7 +16,7 @@ TEST_PARAMS = {'ANALYSER_COMPANY': 'starbucks',
                 'MAX_TWEETS' : 1100 }
 
 COMPANIES = {
-        "Apple" : [
+        "Apple" : 
             "Apple OR "
             +"#Apple OR "
             +"iPad OR "
@@ -26,8 +26,8 @@ COMPANIES = {
             +"mac OR "
             +"macbook OR "
             +"iMac"
-            ],
-        "Facebook" : [
+            ,
+        "Facebook" : 
             "Facebook OR "
             +"#Facebook OR "
             +"news feed OR "
@@ -35,26 +35,26 @@ COMPANIES = {
             +"status OR "
             +"timeline OR "
             +"messenger"
-            ],
-        "Costa" : [
+            ,
+        "Costa" : 
             'Costa OR '
             +'#Costa OR '
             +'Whitbread '
-            ],
-        "Microsoft" : [
+            ,
+        "Microsoft" : 
             'Mircosoft OR '
             +'#Mircosoft OR '
-            # +'Surface OR '
-            # +'power point OR '
-            # +'excel OR '
-            # +'vista OR '
-            # +'kinect OR '
-            # +'bing OR '
-            # +'visual basic OR '
-            # +'visual studio OR '
+            +'Surface OR '
+            +'power point OR '
+            +'excel OR '
+            +'vista OR '
+            +'kinect OR '
+            +'bing OR '
+            +'visual basic OR '
+            +'visual studio OR '
             +'ms-dos'
-            ],
-        "Astrazeneca" : [
+            ,
+        "Astrazeneca" : 
             "Astrazeneca OR "
             +"ARIMIDEX OR "
             +"ATACAND OR "
@@ -75,33 +75,33 @@ COMPANIES = {
             +"Astrazeneca OR "
             +"Astrazeneca OR "
             +"Astrazeneca OR "
-            +"Carbocaine  OR "
-            +"Citanes OR "
-            +"Diprivan OR "
-            +"EMLA OR "
-            +"MarcaineOR "
-            +"Naropin OR "
-            +"Xylocaine OR "
-            +"Xyloproct OR "
-            +"Atacand OR "
-            +"Betaloc OR "
-            +"BrilintaOR "
-            +"Crestor OR "
-            +"ExantaOR "
-            +"Epanova OR "
-            +"Imdur OR "
-            +"Inderal OR "
-            +"Lexxel OR "
-            +"Logimax OR "
-            +"Nif-Ten OR "
-            +"Plendil OR "
-            +"Ramace OR "
-            +"SelokenOR "
-            +"Tenoretic OR "
-            +"Tenormin OR "
-            +"Unimax OR "
-            +"Zestoretic OR "
-            +"Zestril OR "
+            # +"Carbocaine  OR "
+            # +"Citanes OR "
+            # +"Diprivan OR "
+            # +"EMLA OR "
+            # +"MarcaineOR "
+            # +"Naropin OR "
+            # +"Xylocaine OR "
+            # +"Xyloproct OR "
+            # +"Atacand OR "
+            # +"Betaloc OR "
+            # +"BrilintaOR "
+            # +"Crestor OR "
+            # +"ExantaOR "
+            # +"Epanova OR "
+            # +"Imdur OR "
+            # +"Inderal OR "
+            # +"Lexxel OR "
+            # +"Logimax OR "
+            # +"Nif-Ten OR "
+            # +"Plendil OR "
+            # +"Ramace OR "
+            # +"SelokenOR "
+            # +"Tenoretic OR "
+            # +"Tenormin OR "
+            # +"Unimax OR "
+            # +"Zestoretic OR "
+            # +"Zestril OR "
             # +"Bydureon OR "
             # +"Byetta OR "
             # +"FarxigaOR "
@@ -143,7 +143,10 @@ COMPANIES = {
             # +"Bricanyl OR "
             # +"Oxis OR "
             +"Pulmicort"
-            ]
+            ,
+            "ytytye9393jenmebrhriue" : 
+                    "ytytye9393jenmebrhriue"
+                    
 }
 
 DATABASES = {'RAW_TWEETS_DB': 'raw_tweets.db',

@@ -1,2 +1,13 @@
 *.pyc
 *.json
+*.db
+raw_tweets.db
+utils.pyc
+FEATURES_DB
+donald.py
+twitter_stream_download.py
+twitterstream.py
+extracted_features.db
+raw_tweets.db
+streaming_new_tweets.py
+
