@@ -13,8 +13,10 @@ api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 #refer http://docs.tweepy.org/en/v3.2.0/api.html#API
 #tells tweepy.API to automatically wait for rate limits to replenish
 
-#Put your search term
-searchquery = "love"
+#The company we are searching for 
+#Easy examples rarely used casually by people 
+#Keryx, Oncothyreon, and Tranzyme - attention to those because they can give almost no results
+searchquery = "Bloomberg"
 
 '''
 Source of the template along with query operators
@@ -33,7 +35,8 @@ while True:
         #count is the number of tweets
         count += 1
         #use count-break during dev to avoid twitter restrictions
-        if (count>10):
+        #10K tweets for training data
+        if (count>100):
            break
     except tweepy.TweepError:
         #catches TweepError when rate limiting occurs, sleeps, then restarts.
