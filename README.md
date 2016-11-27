@@ -1,3 +1,5 @@
+#Tweetpredict
+
 ## Inspiration
 Social media is one the most important drivers of the current world and research has shown that what people do and how they behave on social media can and has been used as a good indicator of the trends in an economy.
 
