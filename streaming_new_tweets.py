@@ -28,8 +28,6 @@ class DBListener(tweepy.StreamListener):
             return True
         the_id = decoded['id']
         tweet = decoded['text']
-        print tweet
-        print "--------------------------------------------------"
         created_at = decoded['created_at']
         created_at = time.mktime(time.strptime(created_at,"%a %b %d %H:%M:%S +0000 %Y"))
         # print created_at
@@ -57,15 +55,33 @@ class DBListener(tweepy.StreamListener):
         self.conn.commit()
         self.conn.close()
 
-        self.conn, self.c = get_database_connection(DATABASES['FEATURES_DB'])
-        self.c.execute('''CREATE TABLE IF NOT EXISTS ''' + self.company + \
-                  ''' (hash INTEGER PRIMARY KEY, value real)''')
 
-        self.c.execute('''INSERT OR IGNORE INTO ''' + self.company + \
-                  ''' VALUES(?, ?)''', (feature[0], feature[1]))
+        try:
+            self.conn, self.c = get_database_connection(DATABASES['FEATURES_DB'])
+            self.c.execute('''CREATE TABLE IF NOT EXISTS ''' + self.company_name + \
+              ''' (hash INTEGER PRIMARY KEY, neg REAL, neu REAL, pos REAL, com REAL)''')
 
-        self.conn.commit()
-        self.conn.close()
+            feature = get_sentiment(tweet)
+            features = []
+            features.append((the_id, feature['neg'], feature['neu'], \
+                            feature['pos'], feature['compound']))
+
+            print features
+            for index, feature in enumerate(features):
+                self.c.execute('''INSERT OR IGNORE INTO ''' + self.company_name + \
+                          ''' VALUES(?, ?, ?, ?, ?)''', \
+                          (feature[0], feature[1], feature[2], feature[3], feature[4]))
+
+        except UnicodeEncodeError:
+            print "UnicodeEncodeError"
+            pass
+        finally:
+            self.conn.commit()
+            self.conn.close()
+            print tweet
+            print "--------------------------------------------------"
+
+
 
 
     def get_filtered_tweets_features(self, company):
