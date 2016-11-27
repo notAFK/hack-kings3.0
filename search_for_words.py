@@ -4,6 +4,8 @@
 import tweepy
 import json
 import config
+import sqlite3
+import utils
 
 #authorize twitter, initialize tweepy
 auth = tweepy.OAuthHandler(config.consumer_key, config.consumer_secret)
@@ -27,7 +29,18 @@ users =tweepy.Cursor(api.search,q=searchquery).items()
 count = 0
 errorCount=0
 
-file = open('search_for_words.json', 'wb') 
+# file = open('search_for_words.json', 'wb') 
+
+#Create the database
+create_tweets_table("." , searchquery + ".db")
+
+conn = sqlite3.connect(searchquery + ".db")
+cur = conn.cursor()
+
+cur.execute('DROP TABLE IF EXISTS ' + searchquery + ' ')
+cur.execute('CREATE TABLE ' + searchquery  + ' (title TEXT, plays INTEGER)')
+
+conn.close()
 
 while True:
     try:
