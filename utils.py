@@ -21,7 +21,7 @@ def get_database_connection(db_path):
     c = conn.cursor()
     return (conn, c)
 
-def create_tweet_table(db_path, table_name):
+def create_tweets_table(db_path, table_name):
     conn, c = get_database_connection(db_path)
     c.execute('''CREATE TABLE ''' + table_name + \
               ''' (hash text, tweet text, ts timestamp)''')
