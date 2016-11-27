@@ -74,17 +74,18 @@ if __name__ == "__main__":
     # max_tweets = TEST_PARAMS['MAX_TWEETS']
     # tweets = get_tweets_from_keyword(keyword, max_tweets)
 
-    keywords = COMPANIES['Astrazeneca']
+    # keywords = COMPANIES['Astrazeneca']
+    keywords = "Microsoft"
     max_tweets = TEST_PARAMS['MAX_TWEETS']
 
-    tweets = get_tweets_from_keyword(keyword, max_tweets)
-    tweets = tweets + get_tweets_from_keyword('#' + keyword, max_tweets)
-    tweets = tweets + get_tweets_from_keyword('@' + keyword, max_tweets)
-    add_tweets_in_db(tweets, keyword)
+    tweets = get_tweets_from_keyword(keywords, max_tweets)
+    tweets = tweets + get_tweets_from_keyword('#' + keywords, max_tweets)
+    tweets = tweets + get_tweets_from_keyword('@' + keywords, max_tweets)
+    add_tweets_in_db(tweets, keywords)
 
-    #The old way to print it out
+    # The old way to print it out
     # for keyword in keywords:
-        # tweets = get_tweets_from_keyword(keyword, max_tweets)
+        # tweets = get_tweets_from_keyword(keyword[0], max_tweets)
 
         # for tweet in tweets:
             # print tweet
