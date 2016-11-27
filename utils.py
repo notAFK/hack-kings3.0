@@ -7,7 +7,7 @@ import json
 import requests
 
 __init__ = ['DATABASES', 'get_database_connection', 'TEST_PARAMS', 'URLS',
-            'VERBOSE', 'create_table']
+            'VERBOSE', 'create_table', 'get_ticker']
 
 URLS = {'COMPANY_NAME_TO_TICKER_API': 'http://chstocksearch.herokuapp.com/api/'}
 VERBOSE = True
