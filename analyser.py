@@ -20,7 +20,7 @@ def read_tweets():
     conn, c = get_database_connection(DATABASES['STUB_RAW_TWEETS_DB'])
     c.execute('''SELECT * FROM ''' + TEST_PARAMS['ANALYSER_COMPANY'] + \
               ''' LIMIT 10000''')
-    return c
+    return conn, c
 
 # Filter a given tweet, removing stopwords and filter weird chars
 def filter_tweet(tweet):
@@ -38,7 +38,8 @@ def filter_tweet(tweet):
 # Return the features of the tweets as a list of tuples
 def get_filtered_tweets_features():
     # Get all tweets from db
-    c = read_tweets()
+    conn, c = read_tweets()
+    conn.close()
     # Filter them
     features = []
     for tweet in c.fetchall():
@@ -50,9 +51,12 @@ def get_filtered_tweets_features():
 def get_sentiment(tweet):
     return vaderSentiment(tweet)
 
+def insert_feature_in_db(feature):
+
 if __name__ == '__main__':
     # Init
     init()
-    # Get filtered tweets
+    # Get features from tweets and put them into feature db
+    
     for feature in get_filtered_tweets_features():
-        print str(feature)
+        insert_feature_in_db(feature)
