@@ -4,6 +4,8 @@
 import tweepy
 import json
 import config
+import sqlite3
+import utils
 
 #authorize twitter, initialize tweepy
 auth = tweepy.OAuthHandler(config.consumer_key, config.consumer_secret)
@@ -13,8 +15,10 @@ api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 #refer http://docs.tweepy.org/en/v3.2.0/api.html#API
 #tells tweepy.API to automatically wait for rate limits to replenish
 
-#Put your search term
-searchquery = "love"
+#The company we are searching for 
+#Easy examples rarely used casually by people 
+#Keryx, Oncothyreon, and Tranzyme - attention to those because they can give almost no results
+searchquery = "Bloomberg"
 
 '''
 Source of the template along with query operators
@@ -25,7 +29,18 @@ users =tweepy.Cursor(api.search,q=searchquery).items()
 count = 0
 errorCount=0
 
-file = open('search_for_words.json', 'wb') 
+# file = open('search_for_words.json', 'wb') 
+
+#Create the database
+create_tweets_table("." , searchquery + ".db")
+
+conn = sqlite3.connect(searchquery + ".db")
+cur = conn.cursor()
+
+cur.execute('DROP TABLE IF EXISTS ' + searchquery + ' ')
+cur.execute('CREATE TABLE ' + searchquery  + ' (title TEXT, plays INTEGER)')
+
+conn.close()
 
 while True:
     try:
@@ -33,7 +48,8 @@ while True:
         #count is the number of tweets
         count += 1
         #use count-break during dev to avoid twitter restrictions
-        if (count>10):
+        #10K tweets for training data
+        if (count>100):
            break
     except tweepy.TweepError:
         #catches TweepError when rate limiting occurs, sleeps, then restarts.
