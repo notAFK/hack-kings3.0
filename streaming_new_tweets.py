@@ -14,6 +14,9 @@ class DBListener(tweepy.StreamListener):
         # #open a file to store the status objects
         # file = open('streaming_new_tweets.json', 'wb')  
         #write json to file
+
+        write_to_DB(decoded)
+
         json.dump(decoded,file,sort_keys = True,indent = 4)
         #show progress
         print "Writing tweets to file,CTRL+C to terminate the program"
@@ -24,6 +27,12 @@ class DBListener(tweepy.StreamListener):
     def on_error(self, status):
         print "Error with status " + status
 
+def write_to_DB(decoded):
+
+    return
+
+
+
 if __name__ == '__main__':
     l = DBListener()
     #authorize twitter, initialize tweepy
@@ -32,7 +41,13 @@ if __name__ == '__main__':
 
     # There are different kinds of streams: public stream, user stream, multi-user streams
     # For more details refer to https://dev.twitter.com/docs/streaming-apis
+
+
+    search_query = COMPANIES["Microsoft"]
+
+    create_tweets_table()
+
     stream = tweepy.Stream(auth, l)
 
     #Hashtag to stream
-    stream.filter(track=COMPANIES["Microsoft"])  #Replace with your favorite hashtag or query
+    stream.filter(track=search_query)  #Replace with your favorite hashtag or query
