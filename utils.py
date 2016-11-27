@@ -11,9 +11,9 @@ __init__ = ['DATABASES', 'get_database_connection', 'TEST_PARAMS', 'URLS',
 
 URLS = {'COMPANY_NAME_TO_TICKER_API': 'http://chstocksearch.herokuapp.com/api/',
         'TWITTER_SEARCH_URL': 'https://twitter.com/search?q='}
-VERBOSE = True
+VERBOSE = False
 TEST_PARAMS = {'ANALYSER_COMPANY': 'starbucks',
-                'MAX_TWEETS' : 100 }
+                'MAX_TWEETS' : 1100 }
 
 COMPANIES = {
         "Apple" : [

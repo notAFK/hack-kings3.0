@@ -103,7 +103,7 @@ def add_tweets_in_db(tweets, keyword):
 
 if __name__ == "__main__":
     keyword = TEST_PARAMS['ANALYSER_COMPANY']
-    max_tweets = 1100
+    max_tweets = TEST_PARAMS['MAX_TWEETS']
     tweets = []
     # Number of processes
     jobs = []

@@ -52,7 +52,8 @@ def get_filtered_tweets_features(company):
         if filtered_tweet == '':
             continue
         feature = get_sentiment(filtered_tweet)
-        features.append((tweet[0], feature['pos']))
+        features.append((tweet[0], feature['neg'], feature['neu'], \
+                        feature['pos'], feature['compound']))
     # Close connection
     conn.close()
     return company, features
@@ -69,10 +70,11 @@ def get_sentiment(tweet):
 def insert_feature_in_db((company, features)):
     conn, c = get_database_connection(DATABASES['FEATURES_DB'])
     c.execute('''CREATE TABLE IF NOT EXISTS ''' + company + \
-              ''' (hash INTEGER PRIMARY KEY, value real)''')
+      ''' (hash INTEGER PRIMARY KEY, neg REAL, neu REAL, pos REAL, com REAL)''')
     for index, feature in tqdm(enumerate(features)):
         c.execute('''INSERT OR IGNORE INTO ''' + company + \
-                  ''' VALUES(?, ?)''', (feature[0], feature[1]))
+                  ''' VALUES(?, ?, ?, ?, ?)''', \
+                  (feature[0], feature[1], feature[2], feature[3], feature[4]))
     conn.commit()
     conn.close()
 
