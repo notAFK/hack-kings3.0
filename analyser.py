@@ -4,23 +4,25 @@ sqlite3 db'''
 
 import sys
 import os
-import utils
+from utils import *
 import re
-from nltk import stopwords
+import nltk
+import requests
+from nltk.corpus import stopwords
+from vaderSentiment.vaderSentiment import sentiment as vaderSentiment
 
-COMPANY = None
-
-def init(company = None):
+def init():
     # Download stopwords from nltk
     nltk.download('stopwords')
-    # TODO: make this get the company from scraper
-    COMPANY = TEST_PARAMS['ANALYSER_COMPANY']
 
+# Read tweets from db
 def read_tweets():
     conn, c = get_database_connection(DATABASES['STUB_RAW_TWEETS_DB'])
-    c.execute('''SELECT * FROM ? LIMIT 10000''', (COMPANY,))
+    c.execute('''SELECT * FROM ''' + TEST_PARAMS['ANALYSER_COMPANY'] + \
+              ''' LIMIT 10000''')
     return c
 
+# Filter a given tweet, removing stopwords and filter weird chars
 def filter_tweet(tweet):
     # If it has an URL return none
     r = re.compile(r'(http)|(www)')
@@ -30,21 +32,27 @@ def filter_tweet(tweet):
     if tweet in stopwords.words('english') :
         return ''
     # Remove other characters
-    tweet = re.sub(r'[a-zA-Z0-9 -\']', '', tweet)
+    tweet = re.sub(r'^[a-zA-Z0-9 -\'!.;]', '', tweet)
     return tweet
 
-def get_filtered_tweets():
+# Return the features of the tweets as a list of tuples
+def get_filtered_tweets_features():
     # Get all tweets from db
     c = read_tweets()
     # Filter them
-    tweets = []
+    features = []
     for tweet in c.fetchall():
-        tweets.append((tweet[0], filter_tweet(tweet[1])))
-    return tweets
+        feature = get_sentiment(filter_tweet(tweet[1]))
+        features.append((tweet[0], feature))
+    return features
+
+# Get the sentiment of a tweet from a json file
+def get_sentiment(tweet):
+    return vaderSentiment(tweet)
 
 if __name__ == '__main__':
     # Init
     init()
     # Get filtered tweets
-    for tweet in get_filtered_tweets():
-        print str(tweet)
+    for feature in get_filtered_tweets_features():
+        print str(feature)
