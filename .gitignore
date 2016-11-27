@@ -1,2 +1,12 @@
 *.pyc
 *.json
+*.db
+raw_tweets.db
+utils.pyc
+
+insert_feature_in_db()
+ .donald.json.swp
+ FEATURES_DB
+donald.py
+twitter_stream_download.py
+ twitterstream.pi
