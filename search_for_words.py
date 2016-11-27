@@ -103,7 +103,7 @@ def add_tweets_in_db(tweets, keyword):
     conn.close()
 
 if __name__ == "__main__":
-    keyword = 'microsoft'
+    keyword = 'cocacola'
     max_tweets = 1000
 
     if len(sys.argv) == 3:
@@ -116,7 +116,7 @@ if __name__ == "__main__":
     # PROC 1
     process = \
         multiprocessing.Process(target=get_tweets_from_keyword_selenium, \
-                                args=('%23' + 'surfacebook', max_tweets, tweets, \
+                                args=('%23' + 'dietcoke', max_tweets, tweets, \
                                      keyword))
     jobs.append(process)
     process.start()
@@ -130,7 +130,7 @@ if __name__ == "__main__":
     # PROC 3
     process = \
         multiprocessing.Process(target=get_tweets_from_keyword_selenium, \
-                                args=('surfacepro', max_tweets, tweets, keyword))
+                                args=('cocacola', max_tweets, tweets, keyword))
     jobs.append(process)
     process.start()
     # Join stuff

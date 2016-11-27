@@ -80,7 +80,7 @@ def insert_feature_in_db((company, features)):
 
 if __name__ == '__main__':
     # TODO: replace test company with real
-    company = 'microsoft'
+    company = 'cocacola'
     # Init
     init()
     # Get features from tweets and put them into feature db
