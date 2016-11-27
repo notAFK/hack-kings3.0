@@ -5,12 +5,10 @@ import sqlite3
 import os
 
 __init__ = ['DATABASES', 'get_database_connection', 'TEST_PARAMS', 'URLS',
-            'VERBOSE', 'SENTIMENT_API_KEY', 'create_table']
+            'VERBOSE', 'create_table']
 
-SENTIMENT_API_KEY = ''
+URLS = {}
 VERBOSE = True
-URLS = {'SENTIMENT_API':
-    'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment'}
 TEST_PARAMS = {'ANALYSER_COMPANY': 'starbucks'}
 DATABASES = {'RAW_TWEETS_DB': 'raw_tweets.db',
              'FEATURES_DB'  : 'extracted_features.db',
