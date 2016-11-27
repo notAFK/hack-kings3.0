@@ -6,6 +6,7 @@ import json
 import config
 import sqlite3
 import os
+import sys
 import multiprocessing
 import time
 from selenium import webdriver
@@ -102,8 +103,12 @@ def add_tweets_in_db(tweets, keyword):
     conn.close()
 
 if __name__ == "__main__":
-    keyword = TEST_PARAMS['ANALYSER_COMPANY']
-    max_tweets = TEST_PARAMS['MAX_TWEETS']
+    keyword = 'microsoft'
+    max_tweets = 1000
+
+    if len(sys.argv) == 3:
+        keyword = sys.argv[1]
+        max_tweets = sys.argv[2]
     tweets = []
     # Number of processes
     jobs = []
@@ -111,7 +116,7 @@ if __name__ == "__main__":
     # PROC 1
     process = \
         multiprocessing.Process(target=get_tweets_from_keyword_selenium, \
-                                args=('%23' + keyword, max_tweets, tweets, \
+                                args=('%23' + 'surfacebook', max_tweets, tweets, \
                                      keyword))
     jobs.append(process)
     process.start()
@@ -125,7 +130,7 @@ if __name__ == "__main__":
     # PROC 3
     process = \
         multiprocessing.Process(target=get_tweets_from_keyword_selenium, \
-                                args=(keyword, max_tweets, tweets, keyword))
+                                args=('surfacepro', max_tweets, tweets, keyword))
     jobs.append(process)
     process.start()
     # Join stuff
