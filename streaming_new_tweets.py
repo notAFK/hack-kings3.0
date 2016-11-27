@@ -64,7 +64,9 @@ class DBListener(tweepy.StreamListener):
         self.c.execute('''INSERT OR IGNORE INTO ''' + self.company + \
                   ''' VALUES(?, ?)''', (feature[0], feature[1]))
 
-        insert_feature_in_db()
+        self.conn.commit()
+        self.conn.close()
+
 
     def get_filtered_tweets_features(self, company):
         # Get all tweets from db
