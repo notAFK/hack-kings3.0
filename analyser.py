@@ -28,6 +28,7 @@ def read_tweets(company):
 
 # Filter a given tweet, removing stopwords and filter weird chars
 def filter_tweet(tweet):
+    tweet = tweet.decode('utf-8')
     # If it has an URL return none
     r = re.compile(r'(http)|(www)')
     if r.search(tweet):

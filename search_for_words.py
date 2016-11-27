@@ -6,6 +6,10 @@ import json
 import config
 import sqlite3
 import os
+import multiprocessing
+import time
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from tqdm import tqdm
 from utils import *
 
@@ -24,6 +28,35 @@ def init_api():
 
     return api
 
+def get_tweets_from_keyword_selenium(keyword, max_tweets, tweets_list, kw):
+    base_url = URLS['TWITTER_SEARCH_URL']
+    browser = webdriver.Chrome()
+    url = base_url + keyword
+
+    browser.get(url)
+    time.sleep(1)
+
+    body = browser.find_element_by_tag_name('body')
+
+    for _ in range(max_tweets):
+        body.send_keys(Keys.PAGE_DOWN)
+        time.sleep(0.2)
+
+    tweets = browser.find_elements_by_class_name('tweet')
+
+    for tweet in tweets:
+        if tweet.get_attribute('data-item-id') is None:
+            continue
+        the_id = tweet.get_attribute('data-item-id')
+        the_id = int(the_id)
+        text = \
+            tweet.find_element_by_class_name('tweet-text').text.encode('utf-8')
+        created_at = tweet.find_element_by_class_name('_timestamp')
+        created_at = created_at.get_attribute('data-time')
+        tweets_list.append((the_id, text, created_at))
+    # Add them to db
+    add_tweets_in_db(tweets_list, kw)
+
 
 def get_tweets_from_keyword(keyword, max_tweets):
     api = init_api()
@@ -40,9 +73,8 @@ def get_tweets_from_keyword(keyword, max_tweets):
         except tweepy.TweepError:
             #catches TweepError when rate limiting occurs, sleeps, then restarts.
             #nominally 15 minnutes, make a bit longer to avoid attention.
-            print "sleeping...."
-            time.sleep(60*16)
-            tweet = next(search)
+            print "rate error"
+            return tweets
         except StopIteration:
             break
         try:
@@ -69,8 +101,31 @@ def add_tweets_in_db(tweets, keyword):
 
 if __name__ == "__main__":
     keyword = TEST_PARAMS['ANALYSER_COMPANY']
-    max_tweets = TEST_PARAMS['MAX_TWEETS']
-    tweets = get_tweets_from_keyword(keyword, max_tweets)
-    tweets = tweets + get_tweets_from_keyword('#' + keyword, max_tweets)
-    tweets = tweets + get_tweets_from_keyword('@' + keyword, max_tweets)
-    add_tweets_in_db(tweets, keyword)
+    max_tweets = 1100
+    tweets = []
+    # Number of processes
+    jobs = []
+    tweets = list()
+    # PROC 1
+    process = \
+        multiprocessing.Process(target=get_tweets_from_keyword_selenium, \
+                                args=('%23' + keyword, max_tweets, tweets, \
+                                     keyword))
+    jobs.append(process)
+    process.start()
+    # PROC 2
+    process = \
+        multiprocessing.Process(target=get_tweets_from_keyword_selenium, \
+                                args=('to%3A' + keyword, max_tweets, tweets, \
+                                     keyword))
+    jobs.append(process)
+    process.start()
+    # PROC 3
+    process = \
+        multiprocessing.Process(target=get_tweets_from_keyword_selenium, \
+                                args=(keyword, max_tweets, tweets, keyword))
+    jobs.append(process)
+    process.start()
+    # Join stuff
+    for proc in jobs:
+        proc.join()

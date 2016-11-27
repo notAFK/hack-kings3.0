@@ -9,11 +9,10 @@ import requests
 __init__ = ['DATABASES', 'get_database_connection', 'TEST_PARAMS', 'URLS',
             'VERBOSE', 'create_table', 'get_ticker']
 
-URLS = {'COMPANY_NAME_TO_TICKER_API': 'http://chstocksearch.herokuapp.com/api/'}
+URLS = {'COMPANY_NAME_TO_TICKER_API': 'http://chstocksearch.herokuapp.com/api/',
+        'TWITTER_SEARCH_URL': 'https://twitter.com/search?q='}
 VERBOSE = True
-TEST_PARAMS = {'ANALYSER_COMPANY': 'starbucks OR '
-                                    + 'coffee OR '
-                                    + 'medusa' ,
+TEST_PARAMS = {'ANALYSER_COMPANY': 'starbucks',
                 'MAX_TWEETS' : 100 }
 
 COMPANIES = {
@@ -153,6 +152,7 @@ DATABASES = {'RAW_TWEETS_DB': 'raw_tweets.db',
 
 def get_database_connection(db_path):
     conn = sqlite3.connect(db_path)
+    conn.text_factory = str
     c = conn.cursor()
     return (conn, c)
 
