@@ -137,11 +137,24 @@ if __name__ == "__main__":
     # Join stuff
     for proc in jobs:
         proc.join()
-# =======
-    # # keyword = TEST_PARAMS['ANALYSER_COMPANY']
-    # # max_tweets = TEST_PARAMS['MAX_TWEETS']
-    # # tweets = get_tweets_from_keyword(keyword, max_tweets)
+=======
+    # keyword = TEST_PARAMS['ANALYSER_COMPANY']
+    # max_tweets = TEST_PARAMS['MAX_TWEETS']
+    # tweets = get_tweets_from_keyword(keyword, max_tweets)
 
+    # keywords = COMPANIES['Astrazeneca']
+    keywords = "Microsoft"
+    max_tweets = TEST_PARAMS['MAX_TWEETS']
+
+    tweets = get_tweets_from_keyword(keywords, max_tweets)
+    tweets = tweets + get_tweets_from_keyword('#' + keywords, max_tweets)
+    tweets = tweets + get_tweets_from_keyword('@' + keywords, max_tweets)
+    add_tweets_in_db(tweets, keywords)
+
+    # The old way to print it out
+    # for keyword in keywords:
+        # tweets = get_tweets_from_keyword(keyword[0], max_tweets)
+# =======
     # # keywords = COMPANIES['Astrazeneca']
     # keywords = "Microsoft"
     # max_tweets = TEST_PARAMS['MAX_TWEETS']
@@ -154,6 +167,7 @@ if __name__ == "__main__":
     # # The old way to print it out
     # # for keyword in keywords:
         # # tweets = get_tweets_from_keyword(keyword[0], max_tweets)
+# >>>>>>> switching branches
 
         # # for tweet in tweets:
             # # print tweet
